@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="resources/favicon.ico" type="image/x-icon" />
+  <title>QR code generator</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      height: 100%;
+      font-family: Arial, sans-serif;
+    }
+
+    .hero {
+      background-image: url('resources/qa-bg.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .logo {
+      width: 220px;
+      margin-bottom: 20px;
+    }
+
+ .input-group {
+  position: relative;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 16px 120px 16px 20px; /* 👈 Padding-right for button space */
+  font-size: 1.1rem;
+  border: 2px solid #3b82f6;
+  border-radius: 12px;
+  background-color: #0f172a;
+  color: #ffffff;
+  outline: none;
+  transition: 0.3s;
+}
+
+.input-group input::placeholder {
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+.input-group input:focus {
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+  border-color: #3b82f6;
+}
+
+.input-group button {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 12px 20px;
+  font-size: 1.05rem;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.input-group button:hover {
+  background-color: #2563eb;
+}
+
+
+
+    #qrcode {
+      margin-top: 20px;
+      background: white;
+      padding: 10px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="hero">
+    <img src="resources/Logo.svg" alt="logo" class="logo" />
+
+    <div class="input-group">
+      <input type="text" id="text" placeholder="Enter an URL" />
+      <button onclick="generateQRCode()">QR code</button>
+    </div>
+
+    <div id="qrcode"></div>
+  </div>
+
+  <!-- QRCode.js Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <script>
+    let qr;
+
+    function generateQRCode() {
+      const text = document.getElementById("text").value.trim();
+      const qrContainer = document.getElementById("qrcode");
+
+      qrContainer.innerHTML = "";
+
+      if (!text) {
+        alert("Please enter some text or a link!");
+        return;
+      }
+
+      qr = new QRCode(qrContainer, {
+        text: text,
+        width: 200,
+        height: 200,
+        colorDark: "#000000",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H
+      });
+    }
+  </script>
+</body>
+</html>
